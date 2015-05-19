@@ -1,0 +1,41 @@
+///////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////// 			Victoria Connecté - Aykow			///////////////////////////
+///////////////////				Idée de dévellopement 0.3			///////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+Explication :
+L'objectif de ce code est de faire en sorte que lorsque qu'un Victoria veut envoyer des données notre système la reçois et la transmet. On doit donc la retransmettre en HTTP ( GET)
+au middleware. Pour cela nous avons un contrôleur Ethernet (ENC28j60) et un MIP ( CC1110).
+
+Méthodes 1 : 
+
+Regarder chaque paquet du réseaux s'adressant seulement à nous. A l'aide du filtrage des adresses MAC de la part de l'ENC28j60. L'ENC28j60 ne peut pas suivre la cadence face à des système 100Base-T étant donné qu'il est compatible 10Base-T.
+Nous ne sommes finalement que des clients danc cette configuration. Si nous écoutons chaque paquet nous risquons de louper des paquets... Mais de suivre si l'on s'adresse à nous pour un ARP ou un PING. Et donc montrer que l'on existe sur le réseau. Ce qui permet alors lorsque l'on à une donnée à envoyer être sûr que l'on ne soit pas interdit de comunication. 
+
+Méthodes 2 :
+
+Le Victoria n'envoie les données que toutes les 30 secondes. Est-il nécessaire alors d'écouter le réseaux pour montrer que l'on existe. A voir donc si du côté des Routeurs / Box cela peut fonctionner. On a juste à préciser juste avat les envoies les étapes nécessaires et on allume alors l'enC28j60 à ce moment précis. Il s'initialise , on fait les étapes et on voit si on à une réponse. 
+
+
+Méthodes 3 : (Combinaison des 2)
+On lit le réseau et on attends aussi de recevoir une donnée de la part du Victoria. Lorsque l'on lit le réseau pour ne pas s'encombrer on y effectue aussi un filtrage d'adresse MAC. Lorsque l'on s'adresse à nous on y répond comme il faut  :
+	- ARP -> On précise que oui c'est nous qui avons l'adresse tant.
+	- ICMP -> On renvoie les datas à celui qui les demandes.
+Mais tout d'abord on y effectue une demande d'adresse IP (DHCP). Mais avant chaque envoie de paquet ce qu'il faut effectuer est un RESET du receive de l'ENC28j60. Qui nous permet je pense d'augmenter conciderablement les chances de voir une réponse sur un réseau. On mais alors comme le précise la documentation : RXRST à 1. On prépare notre buffer et juste avant l'envoi celui-ci efface tout paquet reçu pour faire de la place. Attention à gérer bien le Reset... 
+On regarde alors si on a les réponses souhaitées et on les traites comme il faut. :
+	ARP : On précise que l'on existe et on demande alors au serveur DHCP ( Routeur) son adresse en précisant la notre.
+	RESET
+	TCP : demande d'ouverture de communication (Port) -> Attente du signal qui demande l'acquitement. 
+	RESET 
+	TCP : Envoie de l'acquitement. 
+	RESET 
+	HTTP : envoie du GET. Attente du retour d'acquitement HTTP ( traiter en conséquence).
+	Si on a eu l'acquitement HTTP c'est finis pour cette sessions. 
+	RESET 
+	TCP : Fermetture de session du port. -> Attente du signal d'acquitement.
+	RESET
+
+On repart alors à écouter le réseaux comme on le faisait avant et au moment de la prochaine donnée recommence. etc etc.
+
+
+
