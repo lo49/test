@@ -35,6 +35,6 @@ static uint8_t dhcp_ask; // 0 : On demande une IP ! 1: On a notre IP.
 
 
 #define PORT_HTTP_SERVER	80
-#define PORT_HTTP_ME		47394
+#define PORT_HTTP_ME		47395
 
 #endif
