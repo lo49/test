@@ -10,7 +10,7 @@ date : 13 mai 2015
 
 /******** VARIABLE GLOBAL ***********/
 
-extern DHCP dhcp;
+//extern DHCP dhcp;
 TCP tcp;
 
 /******* END VARIABLE GLOBAL *******/

@@ -380,7 +380,7 @@ void enc28j60_init(void)
 	enc28j60Write(MAADR0, UIP_ETHADDR5);
 
 
-	FiltrageMac(UNICAST); // Accept ARP for this moment.
+	//FiltrageMac(UNICAST); // Accept ARP for this moment.
 	
 	// no loopback of transmitted frames
 	enc28j60PhyWrite(PHCON2, PHCON2_HDLDIS);

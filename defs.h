@@ -28,6 +28,7 @@ typedef   unsigned long   uint32_t;
 
 #define BUFFER_SIZE         1000
 static uint8_t buffer[BUFFER_SIZE + 1];
+
 // Host :
 #define HOST_NAME "VICTORIA"
 
