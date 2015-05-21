@@ -262,7 +262,7 @@ void make_options_request(const DHCP gest,uint8_t * buf){
 // TO DO : améliorer les informations données car parfois il y a  bail, etc.
 uint8_t dhcp_reponse(uint8_t *buf,uint16_t packetlen, DHCP *gest){
 // si protocole vaut 17, continuer, presence udp
-	if (buf[IP_PROTO_P]==0x11) {
+	if (buf[IP_PROTO_P]==IP_PROTO_UDP_V) {
 	 	if (buf[UDP_SRC_PORT_L_P] ==67 && buf[UDP_DST_PORT_L_P]==68) {
 	 		if (buf[BOOTSTRAP_MESS_TYPE]==BOOT_REPLY){
 	 			uint8_t i;

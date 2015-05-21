@@ -42,6 +42,7 @@ void main(void)
   dev_init();
   // On cherche à obtenir notre addresse par le biais du routeur :
   DHCP ip = dhcp(buffer);
+  TCP conn = tcp(buffer,ip);
 }
 
 #endif

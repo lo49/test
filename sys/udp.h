@@ -17,14 +17,7 @@ date : 13 mai 2015
 #include "enc28j60.h"
 #include "net.h"
 #include "defs.h"
-// Structure du dhcp :
-typedef struct DHCP_STRUCT
-{
-	uint8_t state;
-	uint8_t ip_routeur[4];
-	uint8_t mac_routeur[6];
-	uint8_t ip_give[4];
-} DHCP;
+
 
 // Gère la demande de requête au serveur DHCP
 void dhcp_request(uint8_t *buf,uint16_t packetlen,DHCP *gest);

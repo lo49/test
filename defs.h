@@ -38,4 +38,28 @@ static uint8_t dhcp_ask; // 0 : On demande une IP ! 1: On a notre IP.
 #define PORT_HTTP_SERVER	80
 #define PORT_HTTP_ME		47395
 
+
+// Structure du TCP
+typedef struct TCP_STRUCT
+{
+	uint8_t state;
+	uint16_t dst_port;
+	uint16_t src_port;
+	uint8_t ip_distant[4];
+	uint8_t mac_routeur[6];
+	uint16_t flag;
+	uint32_t seq_num;
+	uint32_t ack_num;
+}TCP;
+
+
+// Structure du dhcp :
+typedef struct DHCP_STRUCT
+{
+	uint8_t state;
+	uint8_t ip_routeur[4];
+	uint8_t mac_routeur[6];
+	uint8_t ip_give[4];
+} DHCP;
+
 #endif
