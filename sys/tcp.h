@@ -29,7 +29,7 @@ void http_send(uint8_t *buf,uint8_t *data);
 // Gère la reception d'une trames http. 
 void http_recv(uint8_t *buf);
 // Gère la reception d'une trames TCP et réoriente si besoin vers http.
-void tcp_recv(uint8_t *buf);
+uint8_t tcp_recv(uint8_t *buf);
 // Gère les paquets TCP.
 TCP tcp(uint8_t* buf,DHCP ip);
 

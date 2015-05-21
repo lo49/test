@@ -1,0 +1,25 @@
+From 37220ea3094bf944951c95e9276be0379ca12aa9 Mon Sep 17 00:00:00 2001
+From: Loïc Bouilly <loic.bouilly@gmail.com>
+Date: Tue, 19 May 2015 18:03:42 +0200
+Subject: [PATCH] try 2
+
+---
+ defs.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/defs.h b/defs.h
+index 5ba7eae..5786f93 100644
+--- a/defs.h
++++ b/defs.h
+@@ -35,6 +35,6 @@ static uint8_t dhcp_ask; // 0 : On demande une IP ! 1: On a notre IP.
+ 
+ 
+ #define PORT_HTTP_SERVER	80
+-#define PORT_HTTP_ME		47394
++#define PORT_HTTP_ME		47395
+ 
+ #endif
+\ No newline at end of file
+--
+libgit2 0.22.0
+
