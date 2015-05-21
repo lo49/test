@@ -111,7 +111,8 @@ TCP tcp(uint8_t * buf,DHCP ip){
 			switch(tcp_recv(buf,packetlen,&conn)){
 				case :
 					break;
-				default;
+                        default:
+                            break;
 			}
 		}
 	}
