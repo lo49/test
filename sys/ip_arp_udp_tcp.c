@@ -98,7 +98,9 @@ uint16_t checksum(uint8_t *buf, uint16_t len,uint8_t type)
 
 // you must call this function once before you use any of the other functions:
 void init_ip_arp_udp_tcp(uint8_t *mymac, uint8_t *myip)
- {
+{
+   
+ 
     uint8_t i=0;
     while(i<4){
         ipaddr[i]=myip[i];
@@ -177,7 +179,8 @@ uint8_t eth_type_is_ip_and_my_ip(uint8_t *buf,uint16_t len){
 // Lors d'un DHCP, on connaît pas encore notre adresse or peut-être que l'on 
 // s'adresse quand même à nous alors on vérifie que c'est bien notre addr MAC la source.
 
-uint8_t eth_type_is_ip_and_my_mac(uint8_t * buf,uint16_t len){
+uint8_t eth_type_is_ip_and_my_mac(uint8_t * buf,uint16_t len)
+{
       uint8_t i=0;
       uint8_t freebox[6] = {0xf4,0xca,0xe5,0x52,0xf0,0x3a};
       
@@ -652,7 +655,8 @@ uint16_t get_udp_port_src(uint8_t *buf){
     return (buf[UDP_SRC_PORT_H_P]<<8 | buf[UDP_SRC_PORT_L_P]&0xff);
 }
 
-uint16_t get_udp_port_dst(uint8_t *buf){
+uint16_t get_udp_port_dst(uint8_t *buf)
+{
     return (buf[UDP_DST_PORT_H_P]<<8 | buf[UDP_DST_PORT_L_P]&0xff);
 }
 
@@ -970,5 +974,5 @@ uint16_t udp_get_dlength ( uint8_t *buf )
     return ((uint16_t)dlength);
 }
 
-#
+
 /* end of ip_arp_udp.c */

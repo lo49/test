@@ -141,9 +141,10 @@
 // *********** BOOTSTRAP ***************
 #define BOOTSTRAP_MESS_TYPE	0x2A
  #define BOOT_ACK 			0x05
- #define BOOT_REQUEST 		0x03
+ #define BOOT_REQUEST 		0x01
  #define BOOT_OFFER			0x02
  #define BOOT_DISCOVER		0x01
+ #define BOOT_REPLY			0x02
 #define BOOTSTRAP_HDW_TYPE	0x2B
  #define ETHERNET_TYPE		0x01
 #define BOOTSTRAP_ADDR_LEN	0x2C
@@ -160,29 +161,50 @@
 #define BOOTSTRAP_SVR_HST_NAME	0x56 
 #define BOOTSTRAP_BOOT_FLE_NAME	0x96
 #define BOOTSTRAP_MAGIC_COOKIE	0x116
-
+#define CLIENT_MAC_ADRESS		0x46
+#define LEN_CLIENT_MAC_ADRESS	0x06
 
 #define OPTION_BEGIN	0x11A // Début des option !
 #define	OPTION_SUBMASK		0x01
 #define OPTION_ROUTEUR		0x03
 #define OPTION_DNS_SERVER	0x06
+#define OPTION_DOMAIN_NAME	0x0f
 #define OPTION_REQUEST_IP	0x32 // Request IP Address
  #define LEN_REQUEST_IP		0x04
 #define OPTION_MESS_TYPE	0x35 // DHCP Message Type
  #define LEN_MESS_TYPE		0x01
 #define OPTION_SERVER_ID	0x36 // Server Identifier
  #define LEN_SERVER_ID		0x04
-#define OPTION_CLIENT_ID	0x3D
+#define OPTION_CLIENT_ID	0x3D // client identifier
  #define LEN_CLIENT_ID		0x07
-#define OPTION_END	0xFF
-#define DHCP_DISCOVER	0x1
-#define DHCP_OFFER		0x2
-#define DHCP_REQUEST	0x3
-#define DHCP_DECLINE	0x4
-#define DHCP_ACK		0x5
-#define DHCP_NACK		0x6
-#define DHCP_RELEASE	0x7
-#define DHCP_INFORM		0x8
+#define OPTION_END			0xFF
+#define DHCP_DISCOVER		0x1
+#define DHCP_OFFER			0x2
+#define DHCP_REQUEST		0x3
+#define DHCP_DECLINE		0x4
+#define DHCP_ACK			0x5
+#define DHCP_NACK			0x6
+#define DHCP_RELEASE		0x7
+#define DHCP_INFORM			0x8
+#define HWR_ETHERNET		0x01
+#define OPTION_HOST_NAME 			0x0C
+#define LEN_HOST_NAME 		0x08
+#define LEN_REQUEST_LIST	0x0D
+#define OPTION_REQUEST_LIST 0x37
+#define NETBIOS_NS			0x2C
+#define NETBIOS_NT			0x2E
+#define NETBIOS_SCOPE		0x2F
+#define PERF_ROUTEUR_DISC	0x1F
+#define STATIC_ROUTE		0x21
+#define CLASSLESS_SR		0x79
+#define PRIVATECLASSLESS_SR	0xF9
+#define PRIVATEPROXY_AUTODISC	0xFC
+#define VENDOR_SPE			0x2B
+#define OPTION_VENDOR_CLASS_ID		0x3C
+#define LEN_VENDOR_CLASS_ID		0x08
+#define DHCP_SRV_ID				0x11D
+
+
 
 
 // ******* TCP *******
@@ -241,6 +263,7 @@ static uint8_t subMask[4];
 static uint8_t routeur[4];
 static uint8_t dns[4];
 static uint32_t time_dhcp;
+
 
 #endif
 //@}
