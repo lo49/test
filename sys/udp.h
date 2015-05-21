@@ -27,7 +27,7 @@ typedef struct DHCP_STRUCT
 } DHCP;
 
 // Gère la demande de requête au serveur DHCP
-void dhcp_request(uint8_t *buf,uint16_t packetlen,const DHCP gest);
+void dhcp_request(uint8_t *buf,uint16_t packetlen,DHCP *gest);
 // Gère la demande de découverte
 void dhcp_discover(uint8_t *buf,DHCP * gest);
 // Gère la demande ACK

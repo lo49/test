@@ -61,7 +61,7 @@ DHCP dhcp(uint8_t *buf){
 			// On check la réponse :
 			switch(dhcp_reponse(buf,packetlen, &gest)){
 				case ST_DHCP_SEND_REQUEST : 
-					dhcp_request(buf,packetlen,gest.ip_give,gest.ip_routeur);
+					dhcp_request(buf,packetlen,&gest);
 					break;
 				case ST_DHCP_OK:
 					return gest;
@@ -74,7 +74,7 @@ DHCP dhcp(uint8_t *buf){
 
 }
 
-void dhcp_request(uint8_t *buf,uint16_t packetlen,gest){
+void dhcp_request(uint8_t *buf,uint16_t packetlen,DHCP *gest){
 	uint8_t dst_mac[6]={0xff,0xff,0xff,0xff,0xff,0xff};
 	make_eth_ip_new(buf, dst_mac);
 
@@ -85,7 +85,7 @@ void dhcp_request(uint8_t *buf,uint16_t packetlen,gest){
 	fill_ip_hdr_checksum(buf);
 	make_udp_header(68,67,308, buf);
 	make_booststrap_protocol (BOOT_REQUEST, 0x8000, buf);
-	make_options_request(gest,buf);
+	make_options_request(*gest,buf);
 	gest->state = ST_DHCP_WAIT_ACK;
 	enc28j60PacketSend(342, buf);
 }
@@ -303,13 +303,13 @@ uint8_t dhcp_reponse(uint8_t *buf,uint16_t packetlen, DHCP *gest){
 	                                gest->mac_routeur[i]=buf[ETH_SRC_MAC+i];
 	                            }
 	 						}
-	 						for(i=0;i<6;i++)
+	 						for(i=0;i<4;i++)
 	 							{
 	                                gest->ip_give[i]=buf[BOOTSTRAP_YOUR_IP+i];
 	                            }
 	 						break;
 
-	 					case DHCP_SRV_ID :
+	 					case OPTION_SERVER_ID :
 	 					uint8_t i;
 	 					for(i=0;i<4;i++)
 	 						{gest->ip_routeur[i]=buf[adress+2+i];	}
