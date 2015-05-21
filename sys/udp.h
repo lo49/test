@@ -27,7 +27,7 @@ typedef struct DHCP_STRUCT
 } DHCP;
 
 // Gère la demande de requête au serveur DHCP
-void dhcp_request(uint8_t *buf,uint16_t packetlen,uint8_t *ipaddr_give,uint8_t* ipserver);
+void dhcp_request(uint8_t *buf,uint16_t packetlen,const DHCP gest);
 // Gère la demande de découverte
 void dhcp_discover(uint8_t *buf,DHCP * gest);
 // Gère la demande ACK
@@ -47,5 +47,6 @@ void make_udp_header(uint16_t source_port, uint16_t dest_port, uint16_t longueur
 void make_booststrap_protocol (uint8_t type_mess, uint16_t bootp_flags, uint8_t *buf );
 
 void make_options(uint8_t mess_type, uint8_t *buf);
+void make_options_request(const DHCP gest,uint8_t * buf);
 
 #endif
