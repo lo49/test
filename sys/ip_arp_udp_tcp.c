@@ -621,6 +621,23 @@ void make_tcp_syn(uint8_t *buf,uint8_t * mac_routeur,uint8_t * ip_distant,uint16
     // add 4 for option mss:
     enc28j60PacketSend(IP_HEADER_LEN + TCP_HEADER_LEN_PLAIN + 4 + ETH_HEADER_LEN, buf);
 }
+
+void make_tcp_fin(uint8_t *buf,uint8_t * mac_routeur,uint8_t * ip_distant,uint16_t dst_port,uint16_t src_port){
+    uint16_t ck;
+    make_eth_ip_new(buf,mac_routeur); 
+     // total length field in the IP header must be set:
+    // 20 bytes IP + 24 bytes (20tcp+4tcp options)
+    uint16_t len =  IP_HEADER_LEN + TCP_HEADER_LEN_PLAIN + 4;
+    make_ip_tcp_new(buf,len,ip_distant);
+    buf[TCP_FLAG_P] = TCP_FLAGS_FIN_V | TCP_FLAGS_ACK_V;
+    make_tcphead(buf, 1, 1, 0,dst_port,src_port);
+    // calculate the checksum, len=8 (start from ip.src) + TCP_HEADER_LEN_PLAIN + 4 (one option: mss)
+    ck = checksum(&buf[IP_SRC_P], 8 + TCP_HEADER_LEN_PLAIN + 4, 2);
+    buf[TCP_CHECKSUM_H_P] = ck >> 8;
+    buf[TCP_CHECKSUM_L_P] = ck & 0xff;
+    // add 4 for option mss:
+    enc28j60PacketSend(IP_HEADER_LEN + TCP_HEADER_LEN_PLAIN + 4 + ETH_HEADER_LEN, buf);
+}
 void make_tcp_synack_from_syn(uint8_t *buf) {
     uint16_t ck;
     make_eth(buf);
